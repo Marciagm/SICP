@@ -31,3 +31,16 @@ Tips
 
 
 ## 1.2 Elements of Programming
+Every powerful language has three such mechanisms:
+
+* primitive expressions and statements, which represent the simplest building blocks that the language provides,
+* means of combination, by which compound elements are built from simpler ones, and
+* means of abstraction, by which compound elements can be named and manipulated as units.
+
+
+reverse a tring:
+
+》'draw'[::-1]
+'ward'
+
+The possibility of binding names to values and later retrieving those values by name means that the interpreter must maintain some sort of memory that keeps track of the names, values, and bindings. This memory is called an **environment**.
