@@ -141,4 +141,66 @@ press q to quit
 ### 1.4.2 Default Argument Values
 when call a function, the number of parameters is not fixed, since there may have default argument values.
 
-## 1.5
+## 1.5 Control
+Practical Guidance. When indenting a suite, all lines must be indented the same amount and in the same way (use spaces, not tabs). Any variation in indentation will cause an error.
+
+Python includes several false values, including 
+* 0
+* None
+* False
+* ''
+
+ All other numbers are true values.
+
+ 0 == -0 True
+
+ eq(1, 1.0) True
+
+ In operator module, 
+ * ge: >= 
+ * eq: ==
+ 
+
+#### short-circuiting
+
+To evaluate the expression <left> and <right>:
+
+* Evaluate the subexpression <left>.
+* If the result is a false value v, then the expression evaluates to v.
+* Otherwise, the expression evaluates to the value of the subexpression <right>.
+
+To evaluate the expression <left> or <right>:
+
+* Evaluate the subexpression <left>.
+* If the result is a true value v, then the expression evaluates to v.
+
+* Otherwise, the expression evaluates to the value of the subexpression <right>.
+
+
+To evaluate the expression not <exp>:
+
+* Evaluate <exp>; The value is True if the result is a false value, and False otherwise.
+
+These values, rules, and operators provide us with a way to combine the results of comparisons. Functions that perform comparisons and return boolean values typically begin with is, not followed by an underscore (e.g., isfinite, isdigit, isinstance, etc.).
+
+
+
+A while statement that does not terminate is called an infinite loop. Press <Control>-C to force Python to stop looping.
+
+
+Doctests. Python provides a convenient method for placing simple tests directly in the docstring of a function. The first line of a docstring should contain a one-line description of the function, followed by a blank line. A detailed description of arguments and behavior may follow. In addition, the docstring may include a sample interactive session that calls the function:
+
+```
+>>> def sum_naturals(n):
+        """Return the sum of the first n natural numbers.
+
+        >>> sum_naturals(10)
+        55
+        >>> sum_naturals(100)
+        5050
+        """
+        total, k = 0, 1
+        while k <= n:
+            total, k = total + k, k + 1
+        return total
+```

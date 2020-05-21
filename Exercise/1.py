@@ -26,3 +26,36 @@ def sum(a, b=10):
 
 print("values: ", sum(8, 9))
 print("default values: ", sum(8))
+
+def absolute_value(x):
+    if x < 0:
+        return -x
+    elif x == 0:
+        return x
+    else:
+        return x
+
+if not '':
+    print(1)
+
+def fib(x):
+    if x <= 1:
+        return x
+    else:
+        return fib(x-1) + fib(x-2)
+
+y = fib(10)    
+
+def fib_while(x):
+    if x <= 1:
+        return x
+    pre = 0
+    curr = 1
+
+    # start from 2
+    k = 2
+    while k < x:
+        k = k + 1
+        pre, curr = curr, pre + curr
+
+    return curr
