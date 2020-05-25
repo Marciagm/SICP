@@ -1,7 +1,7 @@
 """ Our exercise code of chapter1 """
 from urllib.request import urlopen
 from operator import truediv, floordiv
-
+from math import pow
 shakespeare = urlopen('http://composingprograms.com/shakespeare.txt')
 words = set(shakespeare.read().decode().split())
 {w for w in words if len(w) == 6 and w[::-1] in words}
@@ -59,3 +59,19 @@ def fib_while(x):
         pre, curr = curr, pre + curr
 
     return curr
+
+def sumeration(n, term):
+    assert n >= 0, "n must not be a negative number"
+    """Sumeration of term
+    >>> sumeration(5, identity)
+    15
+    """ 
+    total, k = 0, 1
+    while k <= n:
+        total, k = total + term(k), k + 1
+    return total  
+
+def identity(n):
+    return n 
+def cube(n):
+    return pow(n, 3)   

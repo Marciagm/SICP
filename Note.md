@@ -204,3 +204,22 @@ Doctests. Python provides a convenient method for placing simple tests directly 
             total, k = total + k, k + 1
         return total
 ```
+
+Testing: 
+
+* python3 -m doctest -v 1.py
+
+## 1.6 Higher-Order-Functions
+Functions that manipulate functions are called higher-order functions.
+
+Babylonia Method
+
+Compute a's square root: converge
+
+(x + a/x)/2
+
+Critically, the inner functions have access to the names in the environment where they are defined (not where they are called).
+
+The sqrt_update function carries with it some data: the value for a referenced in the environment in which it was defined. Because they "enclose" information in this way, locally defined functions are often called closures.
+
+
