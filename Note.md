@@ -281,3 +281,6 @@ recursive leap of faith
 Mutual recursion: A calls B, B calls A
 
 A function with multiple recursive calls is said to be tree recursive because each call branches into multiple smaller calls, each of which branches into yet smaller calls, just as the branches of a tree become smaller but more numerous as they extend from the trunk.
+
+Tree recursion
+当遇到一个问题时，试图从两个方向降级和拆分。
