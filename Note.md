@@ -223,3 +223,61 @@ Critically, the inner functions have access to the names in the environment wher
 The sqrt_update function carries with it some data: the value for a referenced in the environment in which it was defined. Because they "enclose" information in this way, locally defined functions are often called closures.
 
 
+Newton's Method:
+
+tangent: n. 切线，切面；正切
+adj. 切线的，相切的；接触的；离题的
+
+derivative: n.导数
+
+differentiable functions 可导/微方程
+
+A zero of a function f is an input x such that f(x)=0.
+
+
+We can use higher-order functions to convert a function that takes multiple arguments into a chain of functions that each take a single argument. More specifically, given a function f(x, y), we can define a function g such that g(x)(y) is equivalent to f(x, y). Here, g is a higher-order function that takes in a single argument x and returns another function that takes in a single argument y. This transformation is called currying.
+
+Some programming languages, such as Haskell, only allow functions that take a single argument, so the programmer must curry all multi-argument procedures.
+
+The curry2 function takes in a two-argument function f and returns a single-argument function g. When g is applied to an argument x, it returns a single-argument function h. When h is applied to y, it calls f(x, y). Thus, curry2(f)(x)(y) is equivalent to f(x, y). The uncurry2 function reverses the currying transformation, so that uncurry2(curry2(f)) is equivalent to f.
+
+lambda            x            :          f(g(x))
+
+"A function that    takes x    and returns     f(g(x))"
+
+
+notoriously illegible: 众所周知的不好辨认
+
+
+Python provides special syntax to apply higher-order functions as part of executing a def statement, called a decorator.
+
+
+```
+def trace(fn):
+    def wrapped(x):
+        print('->', fn)
+        return fn(x)
+    return wrapped
+
+@trace
+def tripple(x):
+    return 3 * x 
+
+
+As usual, the function triple is created. However, the name triple is not bound to this function. Instead, the name triple is bound to the returned function value of calling trace on the newly defined triple function. In code, this decorator is equivalent to:
+
+>>> def triple(x):
+        return 3 * x
+>>> triple = trace(triple)    
+```
+
+## 1.7
+anatomy n.解剖学
+factorial n.阶乘
+unwind vt.解开，松开
+
+recursive leap of faith
+
+Mutual recursion: A calls B, B calls A
+
+A function with multiple recursive calls is said to be tree recursive because each call branches into multiple smaller calls, each of which branches into yet smaller calls, just as the branches of a tree become smaller but more numerous as they extend from the trunk.
