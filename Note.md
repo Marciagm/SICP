@@ -283,4 +283,191 @@ Mutual recursion: A calls B, B calls A
 A function with multiple recursive calls is said to be tree recursive because each call branches into multiple smaller calls, each of which branches into yet smaller calls, just as the branches of a tree become smaller but more numerous as they extend from the trunk.
 
 Tree recursion
-当遇到一个问题时，试图从两个方向降级和拆分。
+当遇到一个问题时，试图从各个方向降级和拆分。
+
+# Chapter2 Building Abstractions with Data
+## 2.1 Introduction 
+>>> type(2)
+<class 'int'>
+
+Python includes three native numeric types:
+ * integers (int), 
+ * real numbers (float), 
+ * complex numbers (complex).
+
+
+Abstraction barriers shape the way in which we think about data. A valid representation of a rational number is not restricted to any particular implementation (such as a two-element list);
+
+```
+>>> digits = [1, 8, 2, 8]
+
+>>> digits * 2
+[1, 8, 2, 8, 1, 8, 2, 8]
+
+>>> [2, 7] + digits * 2
+[2, 7, 1, 8, 2, 8, 1, 8, 2, 8]
+
+
+```
+
+Lists are a type of sequence, and sequences are iterable values.
+
+
+This pattern of binding multiple names to multiple values in a fixed-length sequence is called sequence unpacking;
+
+
+Ranges. A range is another built-in type of sequence in Python, which represents a range of integers. Ranges are created with range, which takes two integer arguments: the first number and one beyond the last number in the desired range.
+
+```
+>>> range(1, 10)  # Includes 1, but not 10
+range(1, 10)
+
+>>> list(range(1, 10))
+[1, 2, 3, 4, 5, 6, 7, 8, 9]
+```
+
+
+
+```
+>>> odds = [1, 3, 5, 7, 9]
+>>> [x+1 for x in odds]
+[2, 4, 6, 8, 10]
+
+>>> evens = [x+1 for x in odds]
+>>> evens
+[2, 4, 6, 8, 10]
+
+>>> [x for x in odds if 25 % x == 0]
+[1, 5]
+>>> 
+
+```
+
+```
+[<map expression> for <name> in <sequence expression> if <filter expression>]
+```
+
+
+aggregation  
+ 英  [ˌæɡrɪˈɡeɪʃn]   美  [ˌæɡrɪˈɡeɪʃn]
+
+n. [地质][数] 聚合，聚集；聚集体，集合体
+
+```
+>>> len(city)
+8
+>>> city[3]
+'k'
+
+>>> 'Shabu ' * 2
+'Shabu Shabu '
+
+>>> '124' * 2
+'124124'
+
+>>> """The Zen of Python
+claims, Readability counts.
+Read more: import this."""
+
+'The Zen of Python\nclaims, "Readability counts."\nRead more: import this.'
+
+```
+
+
+String Coercion. A string can be created from any object in Python by calling the str constructor function with an object value as its argument. This feature of strings is useful for constructing descriptive strings from objects of various types.
+
+```
+>>> str(2) + ' is an element of ' + str(digits)
+'2 is an element of [1, 8, 2, 8]'
+```
+
+Adding state to data is a central ingredient of a paradigm called object-oriented programming. 
+
+
+```
+>>> chinese = ['coin', 'string', 'myriad']  # A list literal
+>>> suits = chinese                         # Two names refer to the same list
+As cards migrated to Europe (perhaps through Egypt), only the suit of coins remained in Spanish decks (oro).
+
+>>> suits.pop()             # Remove and return the final element
+'myriad'
+>>> suits.remove('string')  # Remove the first element that equals the argument
+Three more suits were added (they evolved in name and design over time),
+
+>>> suits.append('cup')              # Add an element to the end
+>>> suits.extend(['sword', 'club'])  # Add all elements of a sequence to the end
+and Italians called swords spades.
+
+>>> suits[2] = 'spade'  # Replace an element
+giving the suits of a traditional Italian deck of cards.
+
+>>> suits
+['coin', 'cup', 'spade', 'club']
+The French variant used today in the U.S. changes the first two suits:
+
+>>> suits[0:2] = ['heart', 'diamond']  # Replace a slice
+>>> suits
+['heart', 'diamond', 'spade', 'club']
+>>> suits.reverse()
+>>> suits
+['club', 'spade', 'diamond', 'heart']
+>>> suits.sort()
+>>> suits
+['club', 'diamond', 'heart', 'spade']
+```
+
+Lists can be copied using the list constructor function. Changes to one list do not affect another, unless they share structure.
+
+```
+>>> suits = ['a', 'b', 'c', 'd']
+>>> nest = list(suits)
+>>> nest
+['a', 'b', 'c', 'd']
+>>> len(nest)
+4
+>>> suits.append('e')
+>>> suits
+['a', 'b', 'c', 'd', 'e']
+>>> nest
+['a', 'b', 'c', 'd']
+>>> nest[0] = suits
+>>> nest
+[['a', 'b', 'c', 'd', 'e'], 'b', 'c', 'd']
+>>> suits.append('ddddddd')
+>>> nest
+[['a', 'b', 'c', 'd', 'e', 'ddddddd'], 'b', 'c', 'd']
+>>> suits
+['a', 'b', 'c', 'd', 'e', 'ddddddd']
+```
+
+is and is not
+Python includes two comparison operators, called is and is not, that test whether two expressions in fact evaluate to the identical object. Two objects are identical if they are equal in their current value, and any change to one will always be reflected in the other. Identity is a stronger condition than equality.
+
+A slice from the beginning to the end of the list is one way to copy the contents of a list.
+
+```
+>>> a = [11, 12, 13]
+>>> b = a[1:]
+>>> b
+[12, 13]
+>>> a
+[11, 12, 13]
+>>> 
+```
+
+Again, the values placed in this list are not copied. list(s) and s[:] are equivalent for a list s.
+
+The statement x += y for a list x and iterable y is equivalent to x.extend(y), aside from some obscure and minor differences beyond the scope of this text.
+
+Passing any argument to extend that is not iterable will cause a TypeError. The method does not return anything, and it mutates the list.
+
+However, the methods for manipulating the contents of a list are not available for tuples because tuples are immutable.
+
+Dictionaries were unordered collections of key-value pairs until Python 3.6. Since Python 3.6, their contents will be ordered by insertion. Since dictionaries were historically unordered collections, it is safest not to assume anything about the order in which keys and values will be printed.
+
+Dictionaries do have some restrictions:
+
+* A key of a dictionary cannot be or contain a mutable value.
+* There can be at most one value for a given key.
+
+This first restriction is tied to the underlying implementation of dictionaries in Python. The details of this implementation are not a topic of this text. Intuitively, consider that the key tells Python where to find that key-value pair in memory; if the key changes, the location of the pair may be lost. Tuples are commonly used for keys in dictionaries because lists cannot be used.
